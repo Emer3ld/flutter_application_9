@@ -1,0 +1,86 @@
+ #include <SD.h>   // SD library for reading CSV
+#include <SPI.h>  // SPI communication for SD card module
+
+// Pin controlling the heating pad
+#define HEATING_PAD_PIN  9
+
+// VOC level threshold to turn on the heating pada
+#define VOC_THRESHOLD    600
+
+// Chip Select pin for the SD card module/shield
+// (Common values are 4, 5, or 10 depending on your board/shield)
+#define SD_CS_PIN        5
+
+File csvFile;
+
+void setup() {
+  // Start serial communication at 115200 baud
+  Serial.begin(115200);
+
+  // Set up the heating pad pin
+  pinMode(HEATING_PAD_PIN, OUTPUT);
+  digitalWrite(HEATING_PAD_PIN, LOW); // Ensure it's off at startup
+
+  // Initialize SD card
+  Serial.println("Initializing SD card...");
+  if (!SD.begin(SD_CS_PIN)) {
+    Serial.println("ERROR: SD card initialization failed!");
+    while (1) {
+      // Stay here if SD initialization fails
+    }
+  }
+  Serial.println("SD card initialized successfully.");
+
+  // Open CSV file (make sure the filename matches exactly on the SD)
+  csvFile = SD.open("voc_sensor_11.csv");
+  if (!csvFile) {
+    Serial.println("ERROR: Could not find 'voc_sensor_11.csv' on the SD card!");
+    while (1) {
+      // Stay here if file not found
+    }
+  }
+
+  // Print file size for debugging
+  Serial.print("CSV file opened successfully. File size: ");
+  Serial.print(csvFile.size());
+  Serial.println(" bytes");
+}
+
+void loop() {
+  // If there's more data in the file, read it
+  if (csvFile.available()) {
+    // Read a line from the file
+    String line = csvFile.readStringUntil('\n');
+    line.trim(); // Remove leading/trailing whitespace or newline characters
+
+    // Skip empty lines
+    if (line.length() == 0) {
+      Serial.println("WARNING: Encountered an empty line, skipping...");
+      return;  // End this loop iteration early
+    }
+
+    // Convert the line to an integer (VOC level)
+    int vocValue = line.toInt();
+
+    // Print the VOC reading
+    Serial.print("VOC Level: ");
+    Serial.println(vocValue);
+
+    // Control heating pad based on the threshold
+    if (vocValue > VOC_THRESHOLD) {
+      digitalWrite(HEATING_PAD_PIN, HIGH);
+      Serial.println("Heating pad ON");
+    } else {
+      digitalWrite(HEATING_PAD_PIN, LOW);
+      Serial.println("Heating pad OFF");
+    }
+  } 
+  else {
+    // End of file reached, reset file pointer to the start
+    Serial.println("End of file reached. Restarting from beginning...");
+    csvFile.seek(0);
+  }
+
+  // Delay for 1 second before reading the next line
+  delay(1000);
+}
