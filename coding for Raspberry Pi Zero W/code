@@ -1,0 +1,36 @@
+import pandas as pd
+import time
+import RPi.GPIO as GPIO
+
+# Define GPIO pin for heating pad (change if using a different pin)
+HEATING_PAD_PIN = 17  # 
+
+# Setup GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(HEATING_PAD_PIN, GPIO.OUT)
+
+# Load the Excel file
+file_path = "/home/pi/Correlation.xlsx"  # 
+df = pd.read_excel(file_path, engine="openpyxl")
+
+VOC_COLUMN = "VOC Sensor 11"  
+
+# Iterate through VOC readings
+for index, row in df.iterrows():
+    voc_level = row[VOC_COLUMN]
+
+    if voc_level > 600:
+        GPIO.output(HEATING_PAD_PIN, GPIO.HIGH)  # Turn heating pad ON
+        print(f"VOC Level: {voc_level} ppm - Heating Pad ON")
+    else:
+        GPIO.output(HEATING_PAD_PIN, GPIO.LOW)  # Turn heating pad OFF
+        print(f"VOC Level: {voc_level} ppm - Heating Pad OFF")
+
+    time.sleep(1)  # Add a delay to simulate real-time monitoring
+
+# Cleanup GPIO after script completes
+GPIO.cleanup(
+
+For running script without live data:
+chmod +x /home/pi/control_heating_pad.py 
+ 
