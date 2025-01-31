@@ -60,20 +60,23 @@ This project explores the intersection of **architecture, environmental monitori
 - Logs VOC levels over time.
 - Outputs analysis of **VOC-PM2.5 correlation**.
 
----
-
-## 📊 Research & Theory
-### **Architectural & Psychological Impact**
-- **Parallax Concept**: The interactive element shifts perception and engagement with environmental data.
-- **Human-Centered Design**: Encourages users to form a **connection with air quality** through a tactile, organic representation.
-- **Sick Building Syndrome (SBS) Prevention**: Real-time engagement helps occupants take **preemptive actions** to improve IAQ.
 
 ### **Scientific Basis**
 - **VOC & PM2.5 Correlation**: Secondary Organic Aerosols (SOA) formation is influenced by humidity levels.
 - **Shape Memory Alloy (SMA) Mechanics**: Nitinol responds to **heat**, enabling mechanical actuation based on IAQ metrics.
 
+## ⚠️ Troubleshooting
 
-### **Contact**
+Arduino Issues
+- SD Card Not Detected → Check wiring, reformat the SD card to FAT32, ensure correct CS pin.
+- No VOC Data Readings → Confirm voc_sensor_11.csv is correctly formatted with integer values.
+- Heating Pad Not Responding → Check power supply, connections, and threshold logic in the code.
+- Flutter App Issues
+- Flutter not found? → Install Flutter SDK: flutter.dev
+- App crashes on startup? → Run flutter doctor to check dependencies.
+- No data logs? → Ensure Firebase/Local Storage is configured correctly.
+
+
 - **Author**: Sarah Gomez
 📜 Copyright Notice
 © Sarah Gomez, 2025. All Rights Reserved.
