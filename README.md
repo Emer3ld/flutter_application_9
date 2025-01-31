@@ -72,13 +72,6 @@ This project explores the intersection of **architecture, environmental monitori
 - **VOC & PM2.5 Correlation**: Secondary Organic Aerosols (SOA) formation is influenced by humidity levels.
 - **Shape Memory Alloy (SMA) Mechanics**: Nitinol responds to **heat**, enabling mechanical actuation based on IAQ metrics.
 
----
-
-## 🔥 Future Improvements
-- **Live Sensor Integration**: Upgrade from CSV-based readings to **real-time sensor data** using **IoT**.
-- **AI Predictive Model**: Implement **machine learning** to forecast air quality trends.
-- **Expanded Material Testing**: Explore more **heat-efficient** materials for **faster actuation**.
-
 
 ### **Contact**
 - **Author**: Sarah Gomez
