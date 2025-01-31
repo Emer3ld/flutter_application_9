@@ -16,7 +16,7 @@ This project explores the intersection of **architecture, environmental monitori
 ### **Hardware Requirements**
 - **Arduino Portenta H7** (with Vision Shield for SD card support)
 - **Heating pad** (5V safe operation)
-- **Nitinol wire** (Shape Memory Alloy for actuation)
+- **Nitinol wire** 
 - **SD card** (for storing sensor data)
 - **Power Supply** (5V for safe operation)
 - **Soldering Kit & Wiring** (for hardware connections)
